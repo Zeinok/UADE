@@ -303,7 +303,7 @@ static struct uade_file *lookup_amiga_file_cache(const char *filename)
 void uadecore_get_amiga_message(void)
 {
   uae_u8 *ptr;
-  uae_u8 *nameptr;
+  char *nameptr;
   int x;
   unsigned int mins, maxs, curs;
   int status;
@@ -402,8 +402,8 @@ void uadecore_get_amiga_message(void)
 	    fprintf(stderr, "uadecore: Load name in invalid address range.\n");
 	    break;
     }
-    nameptr = get_real_address(src);
-    f = lookup_amiga_file_cache((const char *) nameptr);
+    nameptr = (char *) get_real_address(src);
+    f = lookup_amiga_file_cache(nameptr);
     if (f == NULL) {
 	    uadecore_send_debug("load: request error: %s", nameptr);
 	    exit(1);
@@ -428,8 +428,8 @@ void uadecore_get_amiga_message(void)
 	    fprintf(stderr, "uadecore: Read name in invalid address range.\n");
 	    break;
     }
-    nameptr = get_real_address(src);
-    f = lookup_amiga_file_cache((const char *) nameptr);
+    nameptr = (char *) get_real_address(src);
+    f = lookup_amiga_file_cache(nameptr);
     if (f == NULL) {
 	    uadecore_send_debug("read: request error: %s", nameptr);
 	    exit(1);
@@ -448,7 +448,8 @@ void uadecore_get_amiga_message(void)
 			    tocopy = f->size - off;
 		    x = uade_safe_copy(dst, f->data + off, tocopy);
 	    }
-	    uadecore_send_debug("read: %s dst 0x%x off 0x%x len 0x%x bytesread 0x%x", nameptr, dst, off, len, x);
+	    uadecore_send_debug("read: %s dst 0x%x off 0x%x len 0x%x "
+				"bytesread 0x%x", nameptr, dst, off, len, x);
     } else {
 	    uadecore_send_debug("read: file not found: %s", nameptr);
     }
@@ -462,8 +463,8 @@ void uadecore_get_amiga_message(void)
       fprintf(stderr, "uadecore: Filesize name in invalid address range.\n");
       break;
     }
-    nameptr = get_real_address(src);
-    f = lookup_amiga_file_cache((const char *) nameptr);
+    nameptr = (char *) get_real_address(src);
+    f = lookup_amiga_file_cache(nameptr);
     if (f == NULL) {
 	    uadecore_send_debug("filesize: request error: %s", nameptr);
 	    exit(1);

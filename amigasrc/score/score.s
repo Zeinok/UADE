@@ -9,6 +9,7 @@
 	include	exec_lib.i
 	include	graphics_lib.i
 	include	dos_lib.i
+	include	icon_lib.i
 	include	rmacros.i
 
 	include	np.i
@@ -37,6 +38,8 @@ UADE_FILESIZE	equ	14
 UADE_TIME_CRITICAL	equ	15
 UADE_GET_INFO	equ	16
 UADE_START_OUTPUT	equ	17
+UADE_ICON_LOAD	equ	18
+UADE_ICON_TOOLTYPE	equ	19
 
 EXECBASE	equ	$0D00
 EXECENTRIES	equ	210
@@ -360,12 +363,31 @@ noepmc
 	lea	intuition_lib_base(pc),a0
 	lea	intuiwarn(pc),a1
 	move.l	#$400,d0
-	bsr	exec_initlibbase
+	bsr	init_lib_base
 	* initialize intuitionbase functions
 	lea	intuition_lib_base(pc),a6
 	lea	intui_allocremember(pc),a0
 	move	jmpcom(pc),-$18C(a6)
 	move.l	a0,-$18C+2(a6)
+
+	* initialize iconbase with failures
+	lea	icon_lib_base(pc),a0
+	lea	iconwarn(pc),a1		* default handler (warning)
+	moveq	#108,d0			* see icon_lib.i
+	bsr	init_lib_base
+
+	* initialize iconbase functions	- register the few functions actually
+	* used by PokeyNoise.
+	lea	icon_lib_base(pc),a6
+	lea	icon_get_disk_object(pc),a0
+	move	jmpcom(pc),GetDiskObject(a6)
+	move.l	a0,GetDiskObject+2(a6)
+	lea	iconfree(pc),a0
+	move	jmpcom(pc),FreeDiskObject(a6)
+	move.l	a0,FreeDiskObject+2(a6)
+	lea	icon_find_tool_type(pc),a0
+	move	jmpcom(pc),FindToolType(a6)
+	move.l	a0,FindToolType+2(a6)
 
 	* ntsc/pal checking
 	moveq	#$20,d1		* default beamcon0 = $20 for PAL
@@ -1710,7 +1732,112 @@ copystring	pushr	a5
 	pullr	a5
 	rts
 
+iconfree
+	rts				* memory leak.. does not matter.
 
+icon_result	dc.l	0,0
+
+icon_find_tool_type									* char *FindToolType(char **list, char *key)
+	* D0 = (A0, A1) (presumably A0 points to garbage here since respective
+	* parsing is not implemented)
+	push	d1-d7/a0-a6
+	pushr	a1
+	move.l	a1,a0
+	bsr	strlen
+	move.l	d0,d1
+	pullr	a1
+	move.l	icon_result(pc),d0
+	beq.b	.icon_exit
+	move.l	d0,a0
+	move.l	icon_result+4(pc),d0
+	* a0 icon info data
+	* a1 key
+	* d0 icon info size
+	* d1 key size
+	pushr	d1
+	bsr	memmem
+	pullr	d1
+	tst.l	d0
+	beq.b	.icon_exit
+	* Skip key and the following character in the haystack.
+	add.l	d1,d0
+	addq.l	#1,d0
+.icon_exit
+	pull	d1-d7/a0-a6
+	tst.l	d0
+	rts
+
+memmem
+	* a0 haystack, a1 needle.
+	* d0 haystack len, d1 needle len.
+	* returns pointer to needle in haystack in D0.
+	push	d2-d5
+	tst.l	d0
+	beq.b	.not_found_final
+	tst.l	d1
+	beq.b	.not_found_final
+	sub.l	d1,d0
+	bmi.b	.not_found_final
+	addq.l	#1,d0
+	moveq	#0,d2
+.icon_loop_0
+	moveq	#0,d3
+.icon_loop_1
+	move.l	d2,d4
+	add.l	d3,d4
+	move.b	(a1,d3.l),d5
+	cmp.b	(a0,d4.l),d5
+	bne.b	.not_found
+	addq.l	#1,d3
+	cmp.l	d1,d3
+	bne.b	.icon_loop_1
+	move.l	a0,d0
+	add.l	d2,d0
+	pull	d2-d5
+	tst.l	d0
+	rts
+.not_found
+	addq.l	#1,d2
+	cmp.l	d0,d2
+	bne.b	.icon_loop_0
+.not_found_final
+	pull	d2-d5
+	moveq	#0,d0
+	rts
+
+icon_extension	dc.b	'.info',0
+	even
+
+icon_get_disk_object	push	d1-d7/a0-a6
+	lea	icon_extension(pc),a0
+	bsr	copystring
+	lea	loadfilemsg(pc),a0
+	move.l	dtg_PathArrayPtr(a5),4(a0)		* name ptr
+
+	move.l	chippoint(pc),d2
+	move.l	d2,8(a0)				* dest ptr
+	clr.l	12(a0)
+	move.l	#loadfilemsge-loadfilemsg,d0
+	bsr	put_message		* call the uade "C" code via message
+	move.l	msgptr(pc),a0
+	move.l	12(a0),d0
+	move.l	d0,d1
+	tst.l	d0
+	beq.b	loadiconerror
+	lea	chippoint(pc),a2	* memory mgmt?
+	add.l	d0,(a2)
+	and.l	#-16,(a2)
+	add.l	#16,(a2)
+
+	move.l	8(a0),d0 	* function returns pointer to buffer in D0
+	beq.b	loadiconerror
+	lea	icon_result(pc),a1
+	move.l	d0,(a1)
+	move.l	d1,4(a1)
+loadiconerror
+	pull	d1-d7/a0-a6
+	tst.l	d0
+	rts
 
 loadfilemsg	dc.l	UADE_LOADFILE
 	dc.l	0,0,0,0	* name ptr, dest ptr, size in msgptr(pc)+12
@@ -2517,6 +2644,7 @@ trapcall	move	d0,sr
 
 dos_library_name	dc.b	'dos.library',0
 uade_library_name	dc.b	'uade.library',0
+icon_library_name	dc.b	'icon.library',0
 	even
 
 exec_old_open_library
@@ -2531,7 +2659,8 @@ exec_open_library
 	lea	dos_lib_base(pc),a0
 	move.l	a0,d0
 	bra.b	return_open_lib
-not_dos_lib	lea	uade_library_name(pc),a0
+not_dos_lib
+	lea	uade_library_name(pc),a0
 	bsr	strcmp
 	tst.l	d0
 	bne.b	not_uade_lib
@@ -2539,7 +2668,16 @@ not_dos_lib	lea	uade_library_name(pc),a0
 	lea	uade_lib_base(pc),a0
 	move.l	a0,d0
 	bra.b	return_open_lib
-not_uade_lib	move.l	a1,a0
+not_uade_lib
+	lea	icon_library_name(pc),a0
+	bsr	strcmp
+	tst.l	d0
+	bne.b	not_icon_lib
+	bsr	send_open_lib_msg
+	lea	icon_lib_base(pc),a0
+	move.l	a0,d0
+	bra.b	return_open_lib
+not_icon_lib	move.l	a1,a0
 	lea	openlibwarnname(pc),a1
 	moveq	#31,d0
 	bsr	strlcpy
@@ -2591,8 +2729,17 @@ intuiwarn	bsr	liboffscheck
 intuiwarnmsg	dc.b	'warning: intuition library function not implemented',0
 	even
 
+iconwarn	bsr	liboffscheck
+	push	all
+	lea	iconwarnmsg(pc),a0
+	bsr	put_string
+	pull	all
+	rts
+iconwarnmsg	dc.b	'warning: icon.library function not implemented',0
+	even
+
 * a0 base, a1 warn funct, d0 = abs(minimum offset)
-exec_initlibbase
+init_lib_base
 	push	all
 	move.l	d0,d6
 	moveq	#6,d0
@@ -3742,5 +3889,9 @@ uade_lib_base
 	dcb.b	$400,0
 intuition_lib_base
 	dcb.b	$200,0
+
+* icon.library
+	dcb.b	108,0		* LVO table: see vectors in icon_lib.i
+icon_lib_base
 
 end
