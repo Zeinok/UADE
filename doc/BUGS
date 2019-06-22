@@ -1,12 +1,4 @@
 To be solved:
-2019-06-22: Wothke <ebay@wothke.ch> reported that reloc hunks are processed in
-	    bad order in the score's relocator.
-	    A reloc in first hunk can change values of the
-	    second hunk, and then the second hunk is overwritten. The reloc
-	    values should be handled last. This is
-	    such a significant bug that existing players in the uade
-	    distribution need all be examined whether this has impact on them.
-	    (shd)
 2007-12-27: Pirates, Red Storm Rising and M-1 Tank Platoon do not work
             because of unimplemented system calls, or maybe audio.device (shd)
 2007-12-27: Two file TFMX ST songs have to be played like this:
