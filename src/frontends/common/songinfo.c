@@ -31,7 +31,9 @@ static void asciiline(char *dst, unsigned char *buf)
 	dst[i] = 0;
 }
 
-static int hexdump(char *info, size_t maxlen, const char *filename, size_t toread)
+/* Returns 0 on success. */
+static int hexdump(char *info, size_t maxlen, const char *filename,
+		   size_t toread)
 {
 	FILE *f;
 	size_t rb, ret;
@@ -41,11 +43,11 @@ static int hexdump(char *info, size_t maxlen, const char *filename, size_t torea
 
 	f = fopen(filename, "rb");
 	if (f == NULL)
-		return 0;
+		return 1;
 
 	buf = malloc(toread);
 	if (buf == NULL)
-		return 0;
+		return 1;
 
 	rb = 0;
 	while (rb < toread) {
@@ -431,6 +433,7 @@ static void process_dm2_mod(char *credits, size_t credits_len,
 	strlcat(credits, tmpstr, credits_len);
 }
 
+/* Returns 0 on success. */
 static int process_module(char *credits, size_t credits_len,
 			  const char *filename)
 {
@@ -439,10 +442,15 @@ static int process_module(char *credits, size_t credits_len,
 	char pre[11];
 	char tmpstr[256];
 
+	/*
+	 * BUG: should be able to read the file from the RMC. This only works
+	 * for non-RMC files.
+	 */
 	buf = uade_read_file(&modfilelen, filename);
 	if (buf == NULL) {
-		fprintf(stderr, "uade: can't allocate mem in process_module()");
-		return 0;
+		fprintf(stderr, "uade: can't allocate mem in process_module() "
+			"or a bug specific to RMC containers.\n");
+		return 1;
 	}
 
 	snprintf(tmpstr, sizeof tmpstr, "UADE2 MODINFO:\n\nFile name:      %s\nFile length:    %zd bytes\n", filename, modfilelen);
@@ -528,7 +536,6 @@ static int process_module(char *credits, size_t credits_len,
 	}
 
 	free(buf);
-
 	return 0;
 }
 
