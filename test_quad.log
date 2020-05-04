@@ -1,0 +1,317 @@
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 0, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 1, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 2, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 0, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 1, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 2, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 0, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+l is not a valid command
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 1, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.
+Loaded configuration: ../share/uade2/uade.conf
+Loaded song.conf: ../share/uade2/song.conf
+ERROR: Failed to load plugin /usr/lib/x86_64-linux-gnu/ao/plugins-4/libesd.so => dlopen() failed
+
+Content recognized: AHX (songs/AHX.Cruisin)
+Loaded eagleplayer.conf: /home/matthias/psh/uade/share/uade2/eagleplayer.conf
+Player candidate: AbyssHighestExperience
+Player: ../share/uade2/players/AbyssHighestExperience (12484 bytes)
+Song: songs/AHX.Cruisin (3879 bytes)
+uadecore: filter type: 2, force 3
+uadecore: Changing to quad mode.
+
+Message: open library dos.library
+
+Message: filesize: file ENV:EaglePlayer/ahx res 0x1a
+
+Message: read ENV:EaglePlayer/ahx dst 0x1586c off 0x0 len 0x100 res 0x1a
+
+Message: filesize: file ENV:EaglePlayer/ahx.waves res 0x64488
+
+Message: read ENV:EaglePlayer/ahx.waves dst 0x1586c off 0x0 len 0x64488 res 0x64488
+
+Player name: AHX v2
+
+Module name: Cruisin
+
+subsong: 0 from range [0, 0]
+
+Message: Starting audio output at 342296
+
+Message: LED is ON
+
+Song end (player)
+Killing child (-1).
+uadecore: No more songs to play.

@@ -1,0 +1,35 @@
+UADE QUAD OUTPUT SUPPORT 
+
+(c) Airmann 8/2013, see http://www.airmann.de
+
+This is the UADE 2.13q Version. The q stands for UADE QUAD multichannel support.
+This version provides an additional command line option for direct Amiga 4 channel audio output.
+Means: the signal content of the 4 original Amiga channels is written directly into either a 
+multichannel audio file or a multichannel audio stream. No stereo mixing is applied !
+
+All oversampling variants are supported. Also if the filters - either A500, or A1200 - 
+are enabled they are applied to each of the 4 channels separately.
+
+Right now, only uade123 frontend supports quadmode. All other frontends don't.
+
+
+COMPILATION HINTS:
+
+- in order to compile this package you have to install the libao / libao-devel package !!!
+  Otherwise it will compile, but audio output won't function.
+
+- You can use "./configure --only-uade123" in order to avoid compilation of non-uade123 frontends
+
+
+FURHTER HINTS:
+
+- There's a "split_quad.sh" script included for splitting up the 4 channel wav file 
+  into 4 mono channel wav files. IMPORTANT: you have to install "sox", first.
+
+- Further, there's a regression test script "test_quad.sh" included, which should be run after
+  compiling the package. The checksums should all be different. You have to check manually.
+  IMPORTANT: you have to install "sox" before running this test.
+
+- You can use any DAW to load and listen to the multichannel wav file directly.
+  Tested with Reaper 4 + surround mixer.
+

@@ -1,0 +1,9 @@
+ossupport.c
+sd-sound.[ch]
+build68k
+gencpu
+uadecore
+cpudefs.c
+cpuemu.c
+cpustbl.c
+cputbl.h
