@@ -22,6 +22,7 @@ uae_u16 *sndbufpt;
 int sndbufsize;
 
 int sound_bytes_per_second;
+int sound_quad_mode;
 
 void close_sound (void)
 {
@@ -34,7 +35,6 @@ int setup_sound (void)
    return 1;
 }
 
-
 void set_sound_freq(int x)
 {
   /* Validation is done later in init_sound() */
@@ -42,6 +42,11 @@ void set_sound_freq(int x)
   init_sound();
 }
 
+// Added by Airmann
+void set_sound_quad_mode(int use_quad_mode)
+{
+  sound_quad_mode = use_quad_mode;
+}
 
 void init_sound (void)
 {
@@ -53,10 +58,11 @@ void init_sound (void)
     fprintf (stderr, "Sound buffer size %d out of range.\n", currprefs.sound_maxbsiz);
     currprefs.sound_maxbsiz = 8192;
   }
-  sndbufsize = 8192;
+  sndbufsize = 8192; 
   
   dspbits = currprefs.sound_bits;
   rate    = currprefs.sound_freq;
+
   channels = currprefs.stereo ? 2 : 1;
 
   if (dspbits != (UADE_BYTES_PER_SAMPLE * 8)) {
@@ -72,10 +78,26 @@ void init_sound (void)
     exit(-1);
   }
 
-  sound_bytes_per_second = (dspbits / 8) *  channels * rate;
-
+  // Mod by Airmann
+  if (sound_quad_mode)
+  {
+    sound_bytes_per_second = (dspbits / 8) *  4 * rate;
+   
+    // TODO does doubling the buffer make sense at all ?
+    // since we have the double number of channels
+    // I suppose this makes sense. Not sure, though.
+    if (sndbufsize <= 8192)
+    {
+      sndbufsize = sndbufsize*2; 
+    }
+  }
+  else
+  {
+    sound_bytes_per_second = (dspbits / 8) *  channels * rate;
+  }
+  
   audio_set_rate(rate);
-
+  
   sound_available = 1;
   
   sndbufpt = sndbuffer;

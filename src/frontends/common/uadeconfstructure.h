@@ -8,6 +8,7 @@ enum uade_option {
 	UC_AO_OPTION,
 	UC_BASE_DIR,
 	UC_BUFFER_TIME,
+        UC_CHANNELS,
 	UC_CONTENT_DETECTION,
 	UC_CYGWIN_DRIVE_WORKAROUND,
 	UC_DISABLE_TIMEOUTS,
@@ -32,6 +33,7 @@ enum uade_option {
 	UC_ONE_SUBSONG,
 	UC_PAL,
 	UC_PANNING_VALUE,
+        UC_QUAD_MODE,
 	UC_RANDOM_PLAY,
 	UC_RECURSIVE_MODE,
 	UC_RESAMPLER,
@@ -133,6 +135,7 @@ struct uade_config {
 	UADE_CHAR_CONFIG(use_text_scope);
 	UADE_CHAR_CONFIG(use_timeouts);
 	UADE_CHAR_CONFIG(use_ntsc);
+        UADE_CHAR_CONFIG(use_quad_mode); // Added by Airmann
 	UADE_CHAR_CONFIG(verbose);
 };
 

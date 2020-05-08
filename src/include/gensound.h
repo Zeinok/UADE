@@ -14,6 +14,7 @@ extern int sound_available;
 extern int setup_sound (void);
 
 extern void set_sound_freq (int x);
+extern void set_sound_quad_mode (int use_quad_mode); // by Airmann
 extern void init_sound (void);
 extern void flush_sound (void);
 extern void close_sound (void);

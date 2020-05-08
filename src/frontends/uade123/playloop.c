@@ -73,8 +73,15 @@ int play_loop(struct uade_state *state)
   int jump_sub = 0;
   int have_subsong_info = 0;
 
-  const int framesize = UADE_BYTES_PER_SAMPLE * UADE_CHANNELS;
-  const int bytes_per_second = UADE_BYTES_PER_FRAME * state->config.frequency;
+  // Mod by Airmann
+  int framesize;
+  if (state->config.use_quad_mode) {
+    framesize = UADE_BYTES_PER_SAMPLE * 4;
+  }
+  else {
+    framesize = UADE_BYTES_PER_SAMPLE * UADE_CHANNELS;
+  }
+  int bytes_per_second = UADE_BYTES_PER_FRAME * state->config.frequency;
 
   enum uade_control_state controlstate = UADE_S_STATE;
 

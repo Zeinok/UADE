@@ -41,9 +41,36 @@ void process_config_options(const struct uade_config *uc)
   }
 
   format.bits = UADE_BYTES_PER_SAMPLE * 8;
-  format.channels = UADE_CHANNELS;
+  format.channels = UADE_CHANNELS; 
   format.rate = uc->frequency;
   format.byte_format = AO_FMT_NATIVE;
+  
+  // Added by Airmann
+  // set channel matrix
+  if (uc->use_quad_mode) {
+
+    format.channels = 4;
+
+    // Hint: multichannel assignment under Linux and in general is a mess.
+    // There are so many factors/components: libao, drivers, multimedia players and so on.
+    // Each component handles multichannel audio order slightly different:
+    // some players just omit channels 3+4, others play them but treat them
+    // as center channels etc. and thus distort the original stereo image.
+    // Then, if you don't have a real multichannel soundcard, stereo downmix 
+    // is handled differently and so on.
+    // I tried several combinations as described in libao documentation, but each matrix
+    // had it's disadvantages. It turned out that omitting any specific matrix
+    // seems to be the best solution. A really suitable surround matrix for correct
+    // Amiga stereo imaging (L=1+3, R=2+4) doesn't exist anyway, though  
+    // classic quadrophonic matrix: L,R,BL,BR or L,R,CL,CR are theoretically useable.
+    // Funny: it turned out, that Windows Media Player did the best job regarding
+    // stereo imaging. It was the only player that did it correctly.
+    format.matrix = NULL;
+    //format.matrix = "L,R,BL,BR"; // quadrophonic default
+  }
+  else {
+    format.matrix = "L,R";
+  }
 
   s = (char *) uc->ao_options.o;
   while (s != NULL && *s != 0) {

@@ -244,6 +244,7 @@ int main(int argc, char *argv[])
     {"one",              0, NULL, '1'},
     {"pal",              0, NULL, UC_PAL},
     {"panning",          1, NULL, 'p'},
+    {"quadmode",     	 0, NULL, UC_QUAD_MODE}, // Added by Airmann
     {"recursive",        0, NULL, 'r'},
     {"repeat",           0, NULL, OPT_REPEAT},
     {"resampler",        1, NULL, UC_RESAMPLER},
@@ -441,6 +442,7 @@ int main(int argc, char *argv[])
     case UC_HEADPHONES2:
     case UC_NTSC:
     case UC_PAL:
+    case UC_QUAD_MODE:
     case UC_SPEED_HACK:
       uade_set_config_option(&uc_cmdline, ret, NULL);
       break;
@@ -741,6 +743,8 @@ static void print_help(void)
 " -p x, --panning=x,  Set panning value in range [0, 2]. 0 is full stereo,\n"
 "                     1 is mono, and 2 is inverse stereo. The default is 0,7.\n"
 " -P filename,        Set player name\n"
+" --quadmode,         Enable 4ch output. Filters are applied to each channel.\n" // Added by Airmann
+"                     Output is written into a multichannel file/stream.\n" 
 " -r, --recursive,    Recursive directory scan\n"
 " --repeat,           Play playlist over and over again\n"
 " --resampler=x       Set resampling method to x, where x = default, sinc\n"

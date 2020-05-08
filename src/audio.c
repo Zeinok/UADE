@@ -6,6 +6,7 @@
   * Copyright 1996 Manfred Thole
   * Copyright 2005 Heikki Orsila
   * Copyright 2005 Antti S. Lankila
+  * Copyright 2013 Matthias Ehrmann
   */
 
 #include <math.h>
@@ -43,6 +44,7 @@ int sound_available;
 static int use_text_scope;
 
 static int sound_use_filter = FILTER_MODEL_A500;
+static int paula_sound_quad_mode = 0;
 
 /* denormals are very small floating point numbers that force FPUs into slow
    mode. All lowpass filters using floats are suspectible to denormals unless
@@ -55,7 +57,7 @@ static int audperhack;
 
 static struct filter_state {
     float rc1, rc2, rc3, rc4, rc5;
-} sound_filter_state[2];
+} sound_filter_state[4]; // mod by Airmann
 
 static float a500e_filter1_a0;
 static float a500e_filter2_a0;
@@ -185,6 +187,36 @@ static inline void sample_backend(int left, int right)
 }
 
 
+// Added by Airmann
+// a+d = left
+// b+c = right
+static inline void sample_backend_4ch(int a, int b, int c, int d)
+{
+   /* samples are in range -16384 (-128*64*2) and 16256 (127*64*2) */
+   a <<= 16 - 14 -1;
+   b <<= 16 - 14 -1;
+   c <<= 16 - 14 -1;
+   d <<= 16 - 14 -1;
+
+   // apply filter to all four channels separately
+   if (sound_use_filter) {
+   	a  = filter(a, &sound_filter_state[0]);
+	b  = filter(b, &sound_filter_state[1]);
+	c  = filter(c, &sound_filter_state[2]);
+	d  = filter(d, &sound_filter_state[3]);
+    }
+
+   // original Amiga order: L=1+4, R=2+3
+   // we use standard order: L=1+3, R=2+4
+   *(sndbufpt++) = a; // L1
+   *(sndbufpt++) = b; // R1
+   *(sndbufpt++) = d; // L2
+   *(sndbufpt++) = c; // R2
+
+   check_sound_buffers();
+}
+
+
 static void sample16s_handler (void)
 {
     int datas[4];
@@ -195,7 +227,13 @@ static void sample16s_handler (void)
 	datas[i] &= audio_channel[i].adk_mask;
     }
 
-    sample_backend(datas[0] + datas[3], datas[1] + datas[2]);
+    // Mod/add by Airmann
+    if (paula_sound_quad_mode) {
+      	sample_backend_4ch(datas[0], datas[1], datas[2], datas[3]);
+    }
+    else { 
+    	sample_backend(datas[0] + datas[3], datas[1] + datas[2]);
+    }
 }
 
 
@@ -212,7 +250,14 @@ static void sample16si_anti_handler (void)
 	audio_channel[i].sample_accum_time = 0;
     }
 
-    sample_backend(datas[0] + datas[3], datas[1] + datas[2]);
+    // Mod/add by Airmann
+    if (paula_sound_quad_mode) {
+      	sample_backend_4ch(datas[0], datas[1], datas[2], datas[3]);
+    }
+    else {
+ 	sample_backend(datas[0] + datas[3], datas[1] + datas[2]); 
+    }
+
 }
 
 
@@ -250,8 +295,20 @@ static void sample16si_sinc_handler (void)
         datas[i] = sum >> 16;
     }
 
-    *(sndbufpt++) = clamp_sample(datas[0] + datas[3]);
-    *(sndbufpt++) = clamp_sample(datas[1] + datas[2]);
+    // Mod/add by Airmann
+    if (paula_sound_quad_mode) {
+
+        // Amiga channel order: L=1+4, R=2+3
+        // we use standard channel order: L=1+3, R=2+4
+    	*(sndbufpt++) = clamp_sample(datas[0]); // L1
+      	*(sndbufpt++) = clamp_sample(datas[1]); // R1
+      	*(sndbufpt++) = clamp_sample(datas[3]); // L2
+   	*(sndbufpt++) = clamp_sample(datas[2]); // R2
+    }
+    else {
+      	*(sndbufpt++) = clamp_sample(datas[0] + datas[3]);
+      	*(sndbufpt++) = clamp_sample(datas[1] + datas[2]);
+    }
 
     check_sound_buffers();
 }
@@ -491,6 +548,12 @@ void audio_set_rate(int rate)
     a500e_filter1_a0 = rc_calculate_a0(rate, 6200);
     a500e_filter2_a0 = rc_calculate_a0(rate, 20000);
     filter_a0 = rc_calculate_a0(rate, 7000);
+}
+
+// Added by Airmann
+void audio_set_quad_mode(int use_quad_mode)
+{
+  paula_sound_quad_mode = use_quad_mode;
 }
 
 

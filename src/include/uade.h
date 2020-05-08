@@ -27,6 +27,7 @@ void uade_reset(void);
 void uade_send_amiga_message(int msgtype);
 void uade_set_automatic_song_end(int song_end_possible);
 void uade_set_ntsc(int usentsc);
+void uade_set_quad_mode(int use_quad_mode);
 void uade_song_end(char *reason, int kill_it);
 void uade_swap_buffer_bytes(void *data, int bytes);
 

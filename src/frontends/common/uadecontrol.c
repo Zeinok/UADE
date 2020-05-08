@@ -206,6 +206,15 @@ int uade_song_initialization(const char *scorename,
 		}
 	}
 
+        // Added by Airmann
+	if (uc->use_quad_mode) {
+		if (uade_send_short_message(UADE_COMMAND_SET_QUAD_MODE, ipc)) {
+			fprintf(stderr, "Can not send quad mode command.\n");
+			goto cleanup;
+		}
+	}
+
+
 	if (uc->frequency != UADE_DEFAULT_FREQUENCY) {
 		if (uade_send_u32
 		    (UADE_COMMAND_SET_FREQUENCY, uc->frequency, ipc)) {

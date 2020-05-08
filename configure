@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=2.13
+VERSION=2.13q # mod by Airmann
 IPC_PROTOCOL_VERSION=1
 
 if test -n "$CC"; then

@@ -69,6 +69,7 @@ static const struct uade_conf_opts uadeconfopts[] = {
 	{.str = "one_subsong",           .l = 1,  .e = UC_ONE_SUBSONG},
 	{.str = "pal",                   .l = 3,  .e = UC_PAL},
 	{.str = "panning_value",         .l = 3,  .e = UC_PANNING_VALUE},
+        {.str = "quad_mode",		 .l = 2,  .e = UC_QUAD_MODE}, // Added by Airmann
 	{.str = "random_play",           .l = 3,  .e = UC_RANDOM_PLAY},
 	{.str = "recursive_mode",        .l = 3,  .e = UC_RECURSIVE_MODE},
 	{.str = "resampler",             .l = 3,  .e = UC_RESAMPLER},
@@ -418,6 +419,7 @@ void uade_merge_configs(struct uade_config *ucd, const struct uade_config *ucs)
 
 	MERGE_OPTION(use_text_scope);
 	MERGE_OPTION(use_ntsc);
+        MERGE_OPTION(use_quad_mode); // Added by Airmann
 	MERGE_OPTION(verbose);
 }
 
@@ -744,6 +746,11 @@ void uade_set_config_option(struct uade_config *uc, enum uade_option opt,
 		}
 		SET_OPTION(panning_enable, 1);
 		SET_OPTION(panning, uade_convert_to_double(value, 0.0, 0.0, 2.0, "panning"));
+		break;
+
+	// Added by Airmann
+        case UC_QUAD_MODE:
+		SET_OPTION(use_quad_mode, 1);
 		break;
 
 	case UC_RANDOM_PLAY:

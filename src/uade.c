@@ -513,6 +513,7 @@ void uade_handle_r_state(void)
 	fprintf(stderr, "uadecore: Invalid size with filter command\n");
 	exit(-1);
       }
+      fprintf(stderr, "uadecore: filter type: %u, force %u", x, y); 
       audio_set_filter(x, y);
       break;
 
@@ -566,6 +567,12 @@ void uade_handle_r_state(void)
     case UADE_COMMAND_SET_NTSC:
       fprintf(stderr, "\nuadecore: Changing to NTSC mode.\n");
       uade_set_ntsc(1);
+      break;
+
+    // Added by Airmann
+    case UADE_COMMAND_SET_QUAD_MODE:	
+      fprintf(stderr, "\nuadecore: Changing to quad mode.\n");
+      uade_set_quad_mode(1);
       break;
 
     case UADE_COMMAND_SONG_END_NOT_POSSIBLE:
@@ -957,6 +964,7 @@ void uade_reset(void)
   }
 
   set_sound_freq(UADE_DEFAULT_FREQUENCY);
+  uade_set_quad_mode(0);  // by Airmann
   epoptionsize = 0;
 
   return;
@@ -1079,6 +1087,14 @@ void uade_send_amiga_message(int msgtype)
 void uade_set_ntsc(int usentsc)
 {
   uade_put_long(SCORE_NTSC, usentsc);
+}
+
+
+// Added by Airmann
+void uade_set_quad_mode(int use_quad_mode)
+{
+  audio_set_quad_mode(use_quad_mode); // PAULA Emulation
+  set_sound_quad_mode(use_quad_mode); // UADE generic sound
 }
 
 
